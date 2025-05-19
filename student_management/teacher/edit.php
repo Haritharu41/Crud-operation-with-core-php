@@ -9,7 +9,7 @@ $passwordErr = $_SESSION['errors']['password'] ?? "";
 
 
 // Optional: repopulate form fields
-$old = $_SESSION['old'] ?? [];
+$old = $_SESSION['old'] ?? [];   
 unset($_SESSION['errors'], $_SESSION['old']);
 
 

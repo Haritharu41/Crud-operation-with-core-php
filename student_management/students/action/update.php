@@ -1,11 +1,48 @@
 
 <?php
+
+session_start();
+
+function test_input($data)
+{
+
+    $data = trim($data);
+    $data = stripslashes($data);
+    $data = htmlspecialchars($data);
+    return $data;
+}
+
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     require_once __DIR__ . '/../../core/db.php';
 
+
+    if (empty($_POST['name'])) {
+        $nameErr = 'Name is required';
+        $errors['name'] = $nameErr;
+    } else {
+        $name = test_input($_POST['name']);
+    }
+
+    if (empty($_POST['email'])) {
+        $emailErr = 'Email is required';
+        $errors['email'] = $emailErr;
+    } else {
+        $email = test_input($_POST['email']);
+    }
+
+
     $id = $_POST['id'] ?? null;
-    $name = trim($_POST['name'] ?? '');
-    $email = trim($_POST['email'] ?? '');
+
+    if (!empty($errors)) {
+        $_SESSION['errors'] = $errors;
+        header("Location: ../edit.php?updateid=" . $id);
+        exit();
+    }
+
+
+
+
 
     // Get the old profile image
     $stmt = $connection->prepare("SELECT profile FROM students WHERE id = ?");

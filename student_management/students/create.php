@@ -1,3 +1,12 @@
+<?php
+
+session_start();
+$nameErr = $_SESSION['errors']['name'] ?? '';
+$emailErr = $_SESSION['errors']['email'] ?? '';
+
+
+unset($_SESSION['errors'], $_SESSION['old']);
+?>
 <!doctype html>
 <html lang="en">
 
@@ -28,12 +37,16 @@
                                 bel">Name</label>
                                 <input type="text" class="form-control" name="name" placeholder="Enter your Name"
                                     autocomplete="off" />
+
+                                <small class="text-danger"><?php echo $nameErr ?></small>
                             </div>
 
                             <div class="mb-3">
                                 <label class="form-label">Email</label>
-                                <input type="email" class="form-control" name="email" placeholder="Enter your Email"
+                                <input type="email" class="form-control" name="email"  placeholder="Enter your Email"
                                     autocomplete="off" />
+
+                                <small class="text-danger"><?php echo $emailErr ?></small>
                             </div>
 
                             <input type="hidden" name="id" value="<?php echo $id; ?>">

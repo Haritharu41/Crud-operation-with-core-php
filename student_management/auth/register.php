@@ -1,3 +1,14 @@
+<?php
+session_start();
+
+$nameErr=$_SESSION['errors']['name'];
+$emailErr=$_SESSION['errors']['email'];
+$passwordErr=$_SESSION['errors']['password'];
+
+
+unset($_SESSION['errors']);
+?>
+
 <!doctype html>
 <html lang="en">
 
@@ -23,17 +34,25 @@
                                 bel">Name</label>
                                     <input type="text" class="form-control" name="name" placeholder="Enter your Name"
                                         autocomplete="off" />
+                                        <small class="text-danger"><?php echo $nameErr; ?></small>
+
+
                                 </div>
 
                                 <div class="mb-3">
                                     <label class="form-label">Email</label>
                                     <input type="email" class="form-control" name="email" placeholder="Enter your Email"
                                         autocomplete="off" />
+                                        <small class="text-danger"><?php echo $emailErr; ?></small>
+
                                 </div>
                                 <div class="mb-3">
                                     <label class="form-label">Password</label>
                                     <input type="password" class="form-control" name="password" placeholder="Enter your Password"
                                         autocomplete="off" />
+
+                                        <small class="text-danger"><?php echo $passwordErr; ?></small>
+
                                 </div>
 
                                 <input type="hidden" name="id" value="<?php echo $id; ?>">
@@ -42,7 +61,7 @@
                                     <button type="submit" class="btn btn-primary px-4" name="submit">Register</button>
                                 </div>
                             </form>
-                            <p>Already have an account? <a href="register.php">Log In</a></p>
+                            <p>Already have an account? <a href="login.php">Log In</a></p>
 
                     </div>
                 </div>

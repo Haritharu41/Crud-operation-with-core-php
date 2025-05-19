@@ -1,3 +1,13 @@
+<?php
+
+
+session_start();
+$passwordErr=$_SESSION['errors']['password'];
+$emailErr=$_SESSION['errors']['email'];
+unset($_SESSION['errors']);
+
+?>
+
 <!doctype html>
 <html lang="en">
 
@@ -21,11 +31,15 @@
                                     <label class="form-label">Email</label>
                                     <input type="email" class="form-control" name="email" placeholder="Enter your Email"
                                         autocomplete="off" />
+
+                                        <small class="text-danger"><?php echo $emailErr; ?></small>
                                 </div>
                                 <div class="mb-3">
                                     <label class="form-label">Password</label>
                                     <input type="password" class="form-control" name="password" placeholder="Enter your Password"
                                         autocomplete="off" />
+                                        <small class="text-danger"><?php echo $passwordErr; ?></small>
+
                                 </div>
 
                                 <input type="hidden" name="id" value="<?php echo $id; ?>">

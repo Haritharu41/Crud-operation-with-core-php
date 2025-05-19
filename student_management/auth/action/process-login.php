@@ -3,14 +3,35 @@ session_start();
 
 require_once __DIR__ . '/../../core/db.php';
 
-$email = trim($_POST['email'] ?? '');
-$password = $_POST['password'] ?? '';
 
-if (!$email || !$password) {
-    $_SESSION['login_error'] = "Email and password are required.";
-    header("Location: ../auth/login.php");
+if (empty($_POST['email'])) {
+    $emailErr = 'Email is required';
+    $errors['email'] = $emailErr;
+} else {
+
+    $email = trim($_POST['email']);
+}
+
+if (empty($_POST['password'])) {
+
+
+    $passwordErr = 'Passwor is reuired';
+    $errors['password'] = $passwordErr;
+}
+else{
+$password = $_POST['password'] ;
+    
+}
+
+
+
+if(!empty($errors)){
+    $_SESSION['errors']=$errors;
+
+    header("Location: ../login.php");
     exit();
 }
+
 
 $query = "SELECT * FROM teachers WHERE email = ?";
 $stmt = $connection->prepare($query);
@@ -37,10 +58,10 @@ if ($teacher && password_verify($password, $teacher['password'])) {
     $_SESSION['is_logged_in'] = true;
 
     header("Location:../../teacher/index.php");
-    exit;
+    exit();
 } else {
 
     $_SESSION['login_error'] = "Invalid credentials.";
-    header("Location: ../auth/login.php");
-    exit;
+    header("Location: ../login.php");
+    exit();
 }

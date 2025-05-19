@@ -2,14 +2,46 @@
 session_start();
 require_once __DIR__ . '/../../core/db.php';
 
-$name = trim($_POST['name'] ?? '');
-$email = trim($_POST['email'] ?? '');
-$password = $_POST['password'] ?? '';
 
-if (!$name || !$email || !$password) {
-    $_SESSION['register_error'] = "All fields are required.";
-    header("Location: ../../auth/register.php");
-    exit;
+function test_input($data)
+{
+    $data = trim($data);
+    $data = stripslashes($data);
+    $data = htmlspecialchars($data);
+}
+
+
+if (empty($_POST['name'])) {
+    $nameErr = 'Name is required';
+    $errors['name'] = $nameErr;
+} else {
+    $name = test_input($_POST['name']);
+}
+
+
+
+if (empty($_POST['email'])) {
+    $emailErr = 'Email is required';
+    $errors['email'] = $emailErr;
+} else {
+    $email = test_input($_POST['email']);
+}
+
+
+if (empty($_POST['password'])) {
+    $passwordErr = 'Password is required';
+    $errors['password'] = $passwordErr;
+} else {
+    $password = test_input($_POST['password']);
+}
+
+
+
+if (!empty($errors)) {
+
+    $_SESSION['errors'] = $errors;
+    header("Location: ../register.php");
+    exit();
 }
 
 $hashedPassword = password_hash($password, PASSWORD_DEFAULT);

@@ -14,6 +14,8 @@ $connection = new mysqli(
 if ($connection->connect_errno) {
     // Log or display a descriptive error message in production applications
     die("Database connection failed: " . htmlspecialchars($connection->connect_error));
+}else{
+    echo "Connected successfully";
 }
 
 

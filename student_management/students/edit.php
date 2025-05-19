@@ -1,6 +1,11 @@
 <?php
-
 session_start();
+
+$nameErr=$_SESSION['errors']['name'];
+$emailErr=$_SESSION['errors']['email'];
+
+
+unset($_SESSION['errors']);
 
 require_once __DIR__ . '/../helpers/students.php';
 $id = $_GET['updateid'] ?? null;
@@ -16,8 +21,7 @@ if (!$student) {
 }
 
 
-$nameErr = $_SESSION['errors']['name'];
-$emailErr = $_SESSION['errors']['email'];
+
 
 
 ?>

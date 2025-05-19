@@ -75,10 +75,12 @@ function uploadProfileImage($file)
 
 
 $profile = uploadProfileImage($_FILES['profile'])['filename'];
+  
 
 
 // Upload data in database
 if (isset($_POST['submit'])) {
+
     global $profile;
 
 
@@ -88,8 +90,8 @@ if (isset($_POST['submit'])) {
     } else {
       $name= test_input( $_POST['name']);
     }
-
-    if (empty($_POST('email'))) {
+ 
+    if (empty($_POST['email'])) {
         $emailErr = 'Email is required';
         $errors['email'] = $emailErr;
     } else {
@@ -97,14 +99,25 @@ if (isset($_POST['submit'])) {
         $email = test_input($_POST['email']);
     }
 
+
+    if(!empty($errors)){
+        $_SESSION['errors']=$errors;
+    header("Location: ../create.php");
+        exit();
+    }
+
+
+
+
    // If any error, store in session and redirect
     if (!empty($errors)) {
         $_SESSION['errors'] = $errors;
         $_SESSION['old'] = ['name' => $name, 'email' => $email];
 
-        header("Location: ../edit.php?updateid=" . $id);
+        header("Location: ../create.php");
         exit();
     }
+
 
 
 
