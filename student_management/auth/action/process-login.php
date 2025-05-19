@@ -8,26 +8,20 @@ if (empty($_POST['email'])) {
     $emailErr = 'Email is required';
     $errors['email'] = $emailErr;
 } else {
-
     $email = trim($_POST['email']);
 }
 
 if (empty($_POST['password'])) {
-
-
     $passwordErr = 'Passwor is reuired';
     $errors['password'] = $passwordErr;
-}
-else{
-$password = $_POST['password'] ;
-    
+} else {
+    $password = $_POST['password'];
 }
 
 
 
-if(!empty($errors)){
-    $_SESSION['errors']=$errors;
-
+if (!empty($errors)) {
+    $_SESSION['errors'] = $errors;
     header("Location: ../login.php");
     exit();
 }

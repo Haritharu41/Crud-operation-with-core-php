@@ -104,10 +104,11 @@ if (isset($_POST['submit'])) {
         $_SESSION['errors']=$errors;
     header("Location: ../create.php");
         exit();
+
     }
 
-
-
+echo 'Hello devleopers'
+;
 
    // If any error, store in session and redirect
     if (!empty($errors)) {

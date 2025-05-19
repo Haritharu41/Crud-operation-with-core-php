@@ -14,10 +14,7 @@ $connection = new mysqli(
 if ($connection->connect_errno) {
     // Log or display a descriptive error message in production applications
     die("Database connection failed: " . htmlspecialchars($connection->connect_error));
-}else{
-    echo "Connected successfully";
 }
-
 
 // Set the character set to UTF-8 for proper encoding
 $connection->set_charset('utf8mb4');
